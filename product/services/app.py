@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from bson.errors import InvalidId
 from bson import ObjectId
 from db import db_client
+import subprocess
 
 app = Flask(__name__)
 
@@ -64,16 +65,12 @@ def create_product():
     return {'message': "received"}
 
 
-def my_function():
-    x = 1
-    y = 2
-    z = 3
-    if x > 1:
-        print("x is greater than 1")
-    elif x < 1:
-        print("x is less than 1")
-    else:
-        print("x is equal to 1")
+@app.route('/')
+def index():
+    name = request.args.get('name')
+    result = subprocess.check_output(f'echo Hello, {name}', shell=True)
+    return result
+
 
 
 if __name__ == '__main__':
