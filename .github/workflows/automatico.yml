@@ -38,7 +38,7 @@ jobs:
         # skip-mypy: false
         # skip-isort: false
         # mypy-ignore-dirs-files: ''
-        # requirements-file: ''
+        requirements-file: 'requirements.txt'
 
     - name: commit isort changes
       run: |
