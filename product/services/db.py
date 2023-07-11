@@ -3,7 +3,7 @@ from pymongo.server_api import ServerApi
 
 
 DB_NAME = 'Product'
-user='tesis'
+user = 'tesis'
 password = 'devsecops2023'
 
 uri = "mongodb+srv://{user}:{password}@tesisdevsecops2023.wdmpqj0.mongodb.net/?retryWrites=true&w=majority"

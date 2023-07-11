@@ -45,7 +45,7 @@ def get_product(product_id):
 def create_product():
     # if resultado
 
-    if not request is None:
+    if  request is not None:
         id = db_client.products.insert_one(
             {
                 'name': request.json['name'],
