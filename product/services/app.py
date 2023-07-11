@@ -64,5 +64,17 @@ def create_product():
     return {'message': "received"}
 
 
+def my_function():
+    x = 1
+    y = 2
+    z = 3
+    if x > 1:
+        print("x is greater than 1")
+    elif x < 1:
+        print("x is less than 1")
+    else:
+        print("x is equal to 1")
+
+
 if __name__ == '__main__':
     app.run()
