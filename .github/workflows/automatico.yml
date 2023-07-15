@@ -10,11 +10,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build Docker image
-        run: docker build -t microservices-${GITHUB_REF#refs/heads/} .
+        run: docker build -t microservices .
       - name: Log in to Docker Hub
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
       - name: Push Docker image to Docker Hub
-        run: docker push microservices-${GITHUB_REF#refs/heads/}
+        run: docker push microservices
   # zap_scan:
   #   runs-on: ubuntu-latest
   #   name: Scan the webapplication
