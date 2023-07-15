@@ -3,14 +3,34 @@ name: GitGuardian scan
 on: [push, pull_request]
 
 jobs:
-  zap_scan:
+  ci:
     runs-on: ubuntu-latest
-    name: Scan ZAP website
+    name: docker
     steps:
-      - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.3.0
-        with:
-          target: 'https://www.zaproxy.org/'
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build Docker image
+        run: docker build -t microservices-${GITHUB_REF#refs/heads/} .
+      - name: Log in to Docker Hub
+        run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+      - name: Push Docker image to Docker Hub
+        run: docker push microservices-${GITHUB_REF#refs/heads/}
+  # zap_scan:
+  #   runs-on: ubuntu-latest
+  #   name: Scan the webapplication
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #       with:
+  #         ref: master
+  #     - name: ZAP Scan
+  #       uses: zaproxy/action-full-scan@v0.5.1
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         docker_name: 'owasp/zap2docker-stable'
+  #         target: 'https://www.zaproxy.org/'
+  #         rules_file_name: '.zap/rules.tsv'
+  #         cmd_options: '-a'
   # sonarcloud:
   #   name: SonarCloud
   #   runs-on: ubuntu-latest
