@@ -32,6 +32,7 @@ jobs:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
           only-severities: critical,high
           exit-code: true
+          token: ${{ secrets.DOCKERHUB_TOKEN }}
 
 
 # - name: Set environment variables
