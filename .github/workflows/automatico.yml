@@ -23,7 +23,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceYa:my-image-tag
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
 
       # - name: Build Docker image
       #   run: docker build -t microservices .
