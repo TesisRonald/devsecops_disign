@@ -22,7 +22,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: user/app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceYa:my-image-tag
 
       # - name: Build Docker image
       #   run: docker build -t microservices .
