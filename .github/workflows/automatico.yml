@@ -24,14 +24,26 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
-      - name: Install Docker Scout CLI
-        run: |
-          curl -fsSL [5](https://raw.githubusercontent.com/docker/scout-cli/main/install.sh) -o install-scout.sh
-          sh install-scout.sh
+      - name: Docker Scout
+        id: docker-scout
+        uses: docker/scout-action@dd36f5b0295baffa006aa6623371f226cc03e506
+        with:
+          command: cves
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+          only-severities: critical,high
+          exit-code: true
 
-      - name: Scan image
-        run: |
-          docker scout analyze ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+
+# - name: Set environment variables
+#   run: |
+#     branch_name=${GITHUB_REF#refs/heads/}
+#     echo "MICROSERVICE_PATH=$branch_name/services" >> $GITHUB_ENV
+#     echo "MICROSERVICE_PORT=5000" >> $GITHUB_ENV
+
+# - name: Run container
+#   run: |
+#     docker run -d -p $MICROSERVICE_PORT:$MICROSERVICE_PORT -v ${{ github.workspace }}/$MICROSERVICE_PATH:/app ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+
 
 
       # - name: Build Docker image
