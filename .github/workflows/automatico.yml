@@ -38,7 +38,7 @@ jobs:
       - name: Run OWASP ZAP scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
-          target: "127.0.0.1:5000/"
+          target: "http://127.0.0.1:5000/"
           cmd_options: "-a"
           
           
