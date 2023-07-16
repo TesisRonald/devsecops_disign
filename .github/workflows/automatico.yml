@@ -34,7 +34,7 @@ jobs:
           exit-code: true
       - name: Run product container
         run: |
-          docker run -d -p 5000:5000 -v ${{ github.workspace }}/product/services:/app ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+          docker run -d -p 5000:5000 -w /app/product/services ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag flask run --host=0.0.0.0
       - name: Run OWASP ZAP scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
