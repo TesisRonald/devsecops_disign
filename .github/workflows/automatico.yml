@@ -16,8 +16,9 @@ jobs:
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git merge ${{ github.ref }} --no-edit
-          git push origin featue
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          git merge origin/$BRANCH_NAME --no-edit
+          git push origin mai
   # ci:
   #   runs-on: ubuntu-latest
   #   name: docker
