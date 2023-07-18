@@ -19,7 +19,7 @@ jobs:
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           echo "BRANCH_NAME: $BRANCH_NAME"
           git merge $BRANCH_NAME --no-edit
-          git push feature
+          git push origin feature
         env:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     
