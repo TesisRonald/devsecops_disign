@@ -18,7 +18,7 @@ jobs:
           git config --global user.email 'ronal1923@gmail.com'
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           git merge origin/$BRANCH_NAME --no-edit
-          git push https://$PERSONAL_ACCESS_TOKEN:x-oauth-basic@github.com/TesisRonald/devsecops_disign.git origin/feature
+          git push https://x-access-token:${{ env.PERSONAL_ACCESS_TOKEN }}@github.com/TesisRonald/devsecops_disign.git origin/feature
         env:
           PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
     
