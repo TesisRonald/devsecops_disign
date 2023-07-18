@@ -17,7 +17,7 @@ jobs:
           git config --global user.email "you@example.com"
           git config --global user.name "Your Name"
           git merge --no-ff ${{ github.event.inputs.branch }}
-          git push origin/feature
+          git push origin origin/feature
 
     
 
