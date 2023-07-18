@@ -17,6 +17,7 @@ jobs:
           git config --global user.name 'rvquichimbo'
           git config --global user.email 'ronal1923@gmail.com'
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "BRANCH_NAME: $BRANCH_NAME"
           git merge $BRANCH_NAME --no-edit
           git push feature
         env:
