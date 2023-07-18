@@ -14,8 +14,8 @@ jobs:
 
       - name: Merge current branch into main
         run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
+          git config --global user.name 'rvquichimbo'
+          git config --global user.email 'ronal1923@gmail.com'
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           git merge origin/$BRANCH_NAME --no-edit
           git push origin origin/feature
