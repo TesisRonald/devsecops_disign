@@ -3,21 +3,33 @@ name: GitGuardian scan
 on: [push, pull_request]
 
 jobs:
-  merge:
+  merge-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@master
+
+      - name: Merge staging -> uat
+        uses: devmasx/merge-branch@master
         with:
-          fetch-depth: 0
-      - name: Show all branches
-        run: git branch -a
-      - name: Merge branch
-        run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          git merge --no-ff ${{ github.event.inputs.branch }}
-          git push origin remotes/origin/feature
+          type: now
+          target_branch: feature
+          message: Merge staging into uat
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+  # merge:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Show all branches
+  #       run: git branch -a
+  #     - name: Merge branch
+  #       run: |
+  #         git config --global user.email "you@example.com"
+  #         git config --global user.name "Your Name"
+  #         git merge --no-ff ${{ github.event.inputs.branch }}
+  #         git push origin remotes/origin/feature
 
     
 
