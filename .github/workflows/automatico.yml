@@ -8,8 +8,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Show all branches
         run: git branch -a
-
       - name: Merge branch
         run: |
           git config --global user.email "you@example.com"
