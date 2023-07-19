@@ -18,11 +18,9 @@ jobs:
       - name: Send notification on merge conflict
         if: failure()
         uses: rtCamp/action-slack-notify@v2
-        with:
-          status: ${{ job.status }}
-          text: Merge - conflictos detectados - revisar manualmente!
         env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }} 
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: 'Merge - conflictos detectados - revisar manualmente!' 
           
   # merge:
   #   runs-on: ubuntu-latest
