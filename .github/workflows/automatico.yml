@@ -17,11 +17,11 @@ jobs:
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - name: Send notification on merge conflict
         if: failure()
-        uses: 8398a7/action-slack@v3
+        uses: rtCamp/action-slack-notify@v2
         with:
           status: ${{ job.status }}
           text: Merge - conflictos detectados - revisar manualmente!
-          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }} 
           
   # merge:
   #   runs-on: ubuntu-latest
