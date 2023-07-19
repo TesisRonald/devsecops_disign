@@ -8,8 +8,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Show all branches
-        run: git branch -a
+        with:
+          fetch-depth: 0
+      
       - name: Merge branch
         run: |
           git config --global user.email "you@example.com"
@@ -20,7 +21,7 @@ jobs:
     
 
 
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      #token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
           
   # ci:
