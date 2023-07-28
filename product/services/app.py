@@ -64,14 +64,5 @@ def create_product():
 
     return {'message': "received"}
 
-
-@app.route('/')
-def index():
-    name = request.args.get('name')
-    result = subprocess.check_output(f'echo Hello, {name}', shell=True)
-    return result
-
-
-
 if __name__ == '__main__':
     app.run()

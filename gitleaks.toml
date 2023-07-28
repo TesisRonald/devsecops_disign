@@ -1,0 +1,28 @@
+title = "gitleaks config"
+
+[[rules]]
+description = "AWS Access Key"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "AWS Secret Key"
+regex = '''(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z\/+]{40}['\"]'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "Password in URL"
+regex = '''(?i)password=.{0,100}[^\w\s]'''
+tags = ["password", "URL"]
+
+[allowlist]
+files = [
+  '''(.*?)(jpg|gif|doc|pdf|bin)$''',
+  '''(go.mod|go.sum)$'''
+]
+
+[[rules]]
+description = "Contraseña"
+regex = '''contraseña'''
+tags = ["password"]
+
