@@ -17,7 +17,7 @@ jobs:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts
           GITLEAKS_CONFIG: '/home/runner/work/devsecops_disign/devsecops_disign/gitleaks.toml'
             
-  python-lint:
+  testCalidad-Unitaria:
     needs: scan
     runs-on: ubuntu-latest
     name: python-lint
@@ -76,9 +76,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
+      - name: Run SonarScanner
+        run: sonar-scanner -X
   ci:
     runs-on: ubuntu-latest
-    needs: [python-lint, sonarcloud]
+    needs: [testCalidad-Unitaria, sonarcloud]
     name: docker&DockerScout&OwaspZap
     steps:
       - name: Checkout code
