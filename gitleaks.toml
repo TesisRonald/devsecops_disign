@@ -2829,7 +2829,6 @@ secretGroup = 1
 keywords = [
     "twitter",
 ]
-
 [[rules]]
 description = "Typeform API token"
 id = "typeform-api-token"
@@ -2838,7 +2837,6 @@ secretGroup = 1
 keywords = [
     "tfp_",
 ]
-
 [[rules]]
 description = "Vault Batch Token"
 id = "vault-batch-token"
@@ -2846,7 +2844,6 @@ regex = '''(?i)\b(hvb\.[a-z0-9_-]{138,212})(?:['|\"|\n|\r|\s|\x60|;]|$)'''
 keywords = [
     "hvb",
 ]
-
 [[rules]]
 description = "Vault Service Token"
 id = "vault-service-token"
@@ -2891,13 +2888,10 @@ keywords = [
     "zendesk",
 ]
 [[rules]]
-description = "Hardcoded username"
-regex = '''\username\s*=\s*'"['"]'''
-tags = ["key", "username"]
-
-[[rules]]
-description = "Hardcoded password"
-regex = '''\password\s*=\s*'"['"]'''
-tags = ["key", "password"]
-
-
+description = "database Key"
+id = "username-secret-key"
+regex = '''(?i)(?:username)(?:[0-9a-z\-_\t .]{0,20})(?:[\s|']|[\s|"]){0,3}(?:=|>|:{1,3}=|\|\|:|<=|=>|:|\?=)(?:'|\"|\s|=|\x60){0,5}([a-z0-9]{40})(?:['|\"|\n|\r|\s|\x60|;]|$)'''
+secretGroup = 1
+keywords = [
+    "username",
+]
