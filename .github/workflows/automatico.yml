@@ -17,123 +17,123 @@ jobs:
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts
           GITLEAKS_CONFIG: '/home/runner/work/devsecops_disign/devsecops_disign/gitleaks.toml'
             
-  # python-lint:
-  #   needs: scan
-  #   runs-on: ubuntu-latest
-  #   name: python-lint
-  #   steps:
-  #   - name: checkout source repo
-  #     uses: actions/checkout@main
+  python-lint:
+    needs: scan
+    runs-on: ubuntu-latest
+    name: python-lint
+    steps:
+    - name: checkout source repo
+      uses: actions/checkout@main
 
-  #   - name: Install dependencies
-  #     run: |
-  #       python -m pip install --upgrade pip
-  #       pip install flake8 pytest
-  #       if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
 
-  #   - name: linting
-  #     uses: programmingwithalex/pylinter@main
-  #     with:
-  #       python-root: '.'
-  #       flake8-flags: ''
-  #       mypy-flags: ''
-  #       fail-on-isort: false
-  #       skip-flake8: false
-  #       # skip-mypy: false
-  #       # skip-isort: false
-  #       # mypy-ignore-dirs-files: ''
-  #       requirements-file: 'requirements.txt'
+    - name: linting
+      uses: programmingwithalex/pylinter@main
+      with:
+        python-root: '.'
+        flake8-flags: ''
+        mypy-flags: ''
+        fail-on-isort: false
+        skip-flake8: false
+        # skip-mypy: false
+        # skip-isort: false
+        # mypy-ignore-dirs-files: ''
+        requirements-file: 'requirements.txt'
 
-  #   - name: commit isort changes
-  #     run: |
-  #       git config --local user.email "action@github.com"
-  #       git config --local user.name "GitHub Action"
-  #       git add -A && git diff-index --cached --quiet HEAD || git commit -m 'isort'
+    - name: commit isort changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -A && git diff-index --cached --quiet HEAD || git commit -m 'isort'
 
-  #   - name: push isort changes
-  #     uses: ad-m/github-push-action@master
-  #     with:
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}
-  #       branch: ${{ github.ref }}
-  #   - name: Test with pytest
-  #     run: |
-  #       if [ -d tests ] || [ -d test ]; then python -m pytest; fi
-  # sonarcloud:
-  #   name: SonarCloud
-  #   needs: scan
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0  # Los clones superficiales deben deshabilitarse para una mejor relevancia del análisis
-  #     - name: SonarCloud Scan
-  #       uses: SonarSource/sonarcloud-github-action@master
-  #       with:
-  #         args: >
-  #           -Dsonar.qualitygate.wait=true
-  #           -Dsonar.qualitygate.timeout=300 
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
-  # ci:
-  #   runs-on: ubuntu-latest
-  #   needs: [python-lint, sonarcloud]
-  #   name: docker&DockerScout&OwaspZap
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #     - name: Set up QEMU
-  #       uses: docker/setup-qemu-action@v2
-  #     - name: Set up Docker Buildx
-  #       uses: docker/setup-buildx-action@v2
-  #     - name: Login to DockerHub
-  #       uses: docker/login-action@v2
-  #       with:
-  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #         password: ${{ secrets.DOCKERHUB_TOKEN }}
-  #     - name: Build and push
-  #       uses: docker/build-push-action@v4
-  #       with:
-  #         context: .
-  #         push: true
-  #         tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
-  #     - name: Docker Scout
-  #       id: docker-scout
-  #       uses: docker/scout-action@main
-  #       with:
-  #         command: cves
-  #         image: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
-  #         only-severities: critical,high
-  #         exit-code: true
-  #     - name: Run product container
-  #       run: |
-  #         docker run -d -p 5000:5000 -w /app/services ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag flask run --host=0.0.0.0
-  #     - name: Run OWASP ZAP scan
-  #       uses: zaproxy/action-baseline@v0.4.0
-  #       with:
-  #         target: "http://127.0.0.1:5000"
-  #         cmd_options: "-a"
+    - name: push isort changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+    - name: Test with pytest
+      run: |
+        if [ -d tests ] || [ -d test ]; then python -m pytest; fi
+  sonarcloud:
+    name: SonarCloud
+    needs: scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Los clones superficiales deben deshabilitarse para una mejor relevancia del análisis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.qualitygate.wait=true
+            -Dsonar.qualitygate.timeout=300 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
+  ci:
+    runs-on: ubuntu-latest
+    needs: [python-lint, sonarcloud]
+    name: docker&DockerScout&OwaspZap
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+      - name: Docker Scout
+        id: docker-scout
+        uses: docker/scout-action@main
+        with:
+          command: cves
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+          only-severities: critical,high
+          exit-code: true
+      - name: Run product container
+        run: |
+          docker run -d -p 5000:5000 -w /app/services ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag flask run --host=0.0.0.0
+      - name: Run OWASP ZAP scan
+        uses: zaproxy/action-baseline@v0.4.0
+        with:
+          target: "http://127.0.0.1:5000"
+          cmd_options: "-a"
   
-  # merge-branch:
-  #   runs-on: ubuntu-latest
-  #   needs: ci
-  #   steps:
-  #     - uses: actions/checkout@master
+  merge-branch:
+    runs-on: ubuntu-latest
+    needs: ci
+    steps:
+      - uses: actions/checkout@master
 
-  #     - name: Merge staging -> uat
-  #       uses: devmasx/merge-branch@master
-  #       with:
-  #         type: now
-  #         target_branch: feature
-  #         message: Merge staging into uat
-  #         github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-  #     - name: Send notification on merge conflict
-  #       if: failure()
-  #       uses: rtCamp/action-slack-notify@v2
-  #       env:
-  #         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-  #         SLACK_MESSAGE: 'Merge - conflictos detectados - revisar manualmente!' 
+      - name: Merge staging -> uat
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: feature
+          message: Merge staging into uat
+          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      - name: Send notification on merge conflict
+        if: failure()
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_MESSAGE: 'Merge - conflictos detectados - revisar manualmente!' 
 
 
 
