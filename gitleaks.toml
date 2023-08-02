@@ -2890,5 +2890,14 @@ secretGroup = 1
 keywords = [
     "zendesk",
 ]
+[[rules]]
+description = "Hardcoded username"
+regex = '''\buser\s*=\s*'"['"]'''
+tags = ["key", "username"]
+
+[[rules]]
+description = "Hardcoded password"
+regex = '''\bpassword\s*=\s*'"['"]'''
+tags = ["key", "password"]
 
 
