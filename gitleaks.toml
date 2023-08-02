@@ -2892,12 +2892,12 @@ keywords = [
 ]
 [[rules]]
 description = "Hardcoded username"
-regex = '''\buser\s*=\s*'"['"]'''
+regex = '''\username\s*=\s*'"['"]'''
 tags = ["key", "username"]
 
 [[rules]]
 description = "Hardcoded password"
-regex = '''\bpassword\s*=\s*'"['"]'''
+regex = '''\password\s*=\s*'"['"]'''
 tags = ["key", "password"]
 
 
