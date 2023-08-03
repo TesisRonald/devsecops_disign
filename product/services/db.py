@@ -14,5 +14,3 @@ uri = ("mongodb+srv://{username}:{password}"
 
 connection: MongoClient = MongoClient(uri, server_api=ServerApi('1'))
 db_client = connection[DB_NAME]
-
-
