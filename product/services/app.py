@@ -2,7 +2,6 @@ from flask import Flask, jsonify, request
 from bson.errors import InvalidId
 from bson import ObjectId
 from db import db_client
-import subprocess
 
 app = Flask(__name__)
 
@@ -47,14 +46,14 @@ def create_product():
     # if resultado
 
     if request is not None:
-        id = db_client.products.insert_one(
+        product_id = db_client.products.insert_one(
             {
                 'name': request.json['name'],
                 'price': request.json['price']
             }
         )
         respose = {
-            'id': str(id.inserted_id),
+            'id': str(product_id.inserted_id),
             'registrado': 'registrado producto'
         }
         return respose
@@ -62,7 +61,8 @@ def create_product():
     else:
         return jsonify({'message': 'Not found'}), 404
 
-    return {'message': "received"}
 
 if __name__ == '__main__':
     app.run()
+    
+    

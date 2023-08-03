@@ -1,10 +1,13 @@
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 DB_NAME = 'Product'
-username = 'tesis'
-password = 'devsecops2023'
+username = os.getenv('DB_USERNAME')
+password = os.getenv('DB_PASSWORD'
 uri = ("mongodb+srv://{username}:{password}"
        "@tesisdevsecops2023.wdmpqj0.mongodb.net/"
        "?retryWrites=true&w=majority")
