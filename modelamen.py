@@ -1,4 +1,4 @@
-from pytm import TM, Server, Dataflow, Boundary
+from pytm import TM, Server, Dataflow, Boundary # type: ignore
 
 tm = TM("My Threat Model")
 tm.description = "A simple threat model example"
