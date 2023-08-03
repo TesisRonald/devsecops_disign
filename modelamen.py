@@ -1,4 +1,4 @@
-from pytm import TM, Server, Dataflow, Boundary # This comment # type: ignore
+from pytm import TM, Server, Dataflow, Boundary  # This comment # type: ignore
 
 tm = TM("My Threat Model")
 tm.description = "A simple"
@@ -15,3 +15,4 @@ dataflow = Dataflow(web, db, "Data Flow")
 dataflow.protocol = "HTTPS"
 
 tm.process()
+
