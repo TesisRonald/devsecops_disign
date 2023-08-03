@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from bson.errors import InvalidId
 from bson import ObjectId
 from db import db_client
-from flask_wtf.csrf import CSRFProtect  # this comments # type: ignore
+from flask_wtf.csrf import CSRFProtect  # type: ignore
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
