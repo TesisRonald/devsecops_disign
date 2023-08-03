@@ -12,6 +12,7 @@ uri = ("mongodb+srv://{username}:{password}"
        "@tesisdevsecops2023.wdmpqj0.mongodb.net/"
        "?retryWrites=true&w=majority")
 
+connection: MongoClient = MongoClient(uri, server_api=ServerApi('1'))
+db_client = connection[DB_NAME]
 
-connection: MongoCloud = MongoClient(uri, server_api=ServerApi('1'))
-db_client = MongoCloud[DB_NAME]
+
