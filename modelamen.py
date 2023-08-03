@@ -1,7 +1,7 @@
-from pytm import TM, Server, Dataflow, Boundary # This comment needs an extra spaceprint(self.name) # type: ignore
+from pytm import TM, Server, Dataflow, Boundary # This comment # type: ignore
 
 tm = TM("My Threat Model")
-tm.description = "A simple threat model example"
+tm.description = "A simple"
 
 boundary = Boundary("My Boundary")
 
