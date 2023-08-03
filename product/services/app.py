@@ -2,8 +2,10 @@ from flask import Flask, jsonify, request
 from bson.errors import InvalidId
 from bson import ObjectId
 from db import db_client
+from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
 
 
 @app.route('/products')
@@ -64,5 +66,4 @@ def create_product():
 
 if __name__ == '__main__':
     app.run()
-    
     

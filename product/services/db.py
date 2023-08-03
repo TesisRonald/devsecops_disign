@@ -7,7 +7,7 @@ load_dotenv()
 
 DB_NAME = 'Product'
 username = os.getenv('DB_USERNAME')
-password = os.getenv('DB_PASSWORD'
+password = os.getenv('DB_PASSWORD')
 uri = ("mongodb+srv://{username}:{password}"
        "@tesisdevsecops2023.wdmpqj0.mongodb.net/"
        "?retryWrites=true&w=majority")
