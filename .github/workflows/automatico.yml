@@ -75,7 +75,7 @@ jobs:
             -Dsonar.qualitygate.timeout=300
           # -Dsonar.scanner.force-deprecated-java-version=true -X
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if 
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  
         
       
