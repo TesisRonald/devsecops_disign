@@ -67,20 +67,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0  # Los clones superficiales deben deshabilitarse para una mejor relevancia del análisis
-      - name: Install coverage dependencies
-        run: |
-          pip install pytest-cov
-      
-      - name: Test with pytest
-        run: |
-          if [ -d tests ] || [ -d test ]; then python -m pytest --cov=my_module --cov-report=xml:coverage.xml; fi
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
             -Dsonar.qualitygate.wait=true
             -Dsonar.qualitygate.timeout=300
-            -Dsonar.python.coverage.reportPaths=coverage.xml
           # -Dsonar.scanner.force-deprecated-java-version=true -X
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if 
