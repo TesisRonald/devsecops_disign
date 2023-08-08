@@ -1,4 +1,5 @@
 FROM python:3.8-alpine
+RUN pip install -r requirements.txt
 # Crear un nuevo usuario no privilegiado
 RUN adduser -D myuser
 
@@ -12,5 +13,4 @@ WORKDIR /app
 # RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev cargo
 COPY ./requirements.txt .
 COPY ./product .
-RUN pip install -r requirements.txt
-RUN pip install --upgrade setuptools==65.5.1
+
