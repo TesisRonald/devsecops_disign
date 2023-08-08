@@ -10,6 +10,5 @@ WORKDIR /app
 COPY ./requirements.txt .
 COPY ./product .
 RUN pip install -r requirements.txt
-RUN pip uninstall -y setuptools
 RUN pip install setuptools==68
 RUN pip show setuptools
