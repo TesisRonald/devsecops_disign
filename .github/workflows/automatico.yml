@@ -102,7 +102,7 @@ jobs:
           push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
       - name: setuptools
-        run: pip show setuptools
+        run: pip install --upgrade setuptools==65.5.1 & pip show setuptools
       - name: Docker Scout
         id: docker-scout
         uses: docker/scout-action@main
