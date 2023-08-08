@@ -101,6 +101,8 @@ jobs:
           context: .
           push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+      - name: setuptools
+        run: pip show setuptools
       - name: Docker Scout
         id: docker-scout
         uses: docker/scout-action@main
