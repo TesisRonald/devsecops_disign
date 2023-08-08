@@ -1,5 +1,7 @@
 FROM python:3.8-alpine
-RUN pip install --upgrade setuptools==65.5.1
+RUN pip uninstall -y setuptools
+RUN pip install setuptools==65.5.1
+
 # Crear un nuevo usuario no privilegiado
 RUN adduser -D myuser
 
