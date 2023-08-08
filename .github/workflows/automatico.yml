@@ -95,11 +95,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build and push
+      - name: Build
         uses: docker/build-push-action@v4
         with:
           context: .
-          push: true
+          push: false
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
       - name: Docker Scout
         id: docker-scout
@@ -108,7 +108,11 @@ jobs:
           command: cves
           image: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
           only-severities: critical,high
-          exit-code: true
+          exit-code: true      
+      - name: Push
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
       - name: Run product container
         run: |
           docker run -d -p 5000:5000 -w /app/services ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag flask run --host=0.0.0.0
