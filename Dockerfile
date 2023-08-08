@@ -1,6 +1,4 @@
 FROM python:3.8-alpine
-RUN pip uninstall -y setuptools
-RUN pip install setuptools==68
 # Crear un nuevo usuario no privilegiado
 RUN adduser -D myuser
 
@@ -12,4 +10,6 @@ WORKDIR /app
 COPY ./requirements.txt .
 COPY ./product .
 RUN pip install -r requirements.txt
-# RUN pip install setuptools==68
+RUN pip uninstall -y setuptools
+RUN pip install setuptools==68
+RUN pip show setuptools
