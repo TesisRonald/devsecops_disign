@@ -13,4 +13,4 @@ WORKDIR /app
 COPY ./requirements.txt .
 COPY ./product .
 RUN pip install -r requirements.txt
-pip install --upgrade setuptools
+RUN pip install --upgrade setuptools
