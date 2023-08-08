@@ -12,3 +12,4 @@ WORKDIR /app
 COPY ./requirements.txt .
 COPY ./product .
 RUN pip install -r requirements.txt
+RUN pip install setuptools==65.5.1
