@@ -118,6 +118,8 @@ jobs:
       - name: curl
         run: | 
           netstat -an | grep 5000
+          curl -v -X GET http://127.0.0.1:5000//products
+          curl -v -X GET http://localhost:5000/products
 
       - name: Run OWASP ZAP scan  
         uses: zaproxy/action-baseline@v0.4.0
