@@ -119,7 +119,7 @@ jobs:
         uses: kong/setup-inso@v1
         with:
           inso-version: 3.5.0
-          run: inso run test --testName "Verify GET /products" --env "Development"
+      - run: inso run test --testName "Verify GET /products" --env "Development"
       - name: Run OWASP ZAP scan  
         uses: zaproxy/action-baseline@v0.4.0
         with:
