@@ -115,7 +115,8 @@ jobs:
       - name: Run product container
         run: |
           docker run -d -p 5000:5000 -u myuser ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag 
-          curl localhost:5000/products
+      - name: Run product container
+        run: | 
           curl 127.0.0.1:5000/products
 
       - name: Run OWASP ZAP scan  
