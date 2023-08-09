@@ -115,6 +115,8 @@ jobs:
       - name: Run product container
         run: |
           docker run -d -p 5000:5000 -u myuser ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag 
+          curl http://localhost:5000/products
+
       - name: Run OWASP ZAP scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
