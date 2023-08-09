@@ -115,8 +115,9 @@ jobs:
       - name: Run product container
         run: |
           docker run -d -p 5000:5000 -u myuser ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag 
-      - name: Run product container
+      - name: curl
         run: | 
+          netstat -an | grep 5000
           curl -X GET http://127.0.0.1:5000//products
           curl -X GET http://localhost:5000/products
 
