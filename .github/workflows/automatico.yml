@@ -117,8 +117,9 @@ jobs:
           docker run -d -p 5000:5000 -u myuser ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag 
       - name: Install Inso and run Insomnia test
         uses: kong/setup-inso@v1
-        run: inso run test --testName "Verify GET /products" --env "Development"
-        
+        with:
+          inso-version: 4
+          run: inso run test --testName "Verify GET /products" --env "Development"
       - name: Run OWASP ZAP scan  
         uses: zaproxy/action-baseline@v0.4.0
         with:
