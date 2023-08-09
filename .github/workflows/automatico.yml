@@ -97,7 +97,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build
         run: |
-          docker build -t my-registry/my-repository/my-image:my-image-tag .
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag .
       - name: setuptools
         run: |
           docker image ls
