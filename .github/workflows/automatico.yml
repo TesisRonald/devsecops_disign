@@ -115,12 +115,10 @@ jobs:
       - name: Run product container
         run: |
           docker run -d -p 5000:5000 -u myuser ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag 
-      - name: Install Inso
-        run: npm install -g insomnia-inso
-
-      - name: Run API tests
-        run: inso run test --testName "Verify GET /products" --env "Development"
-
+      - name: Install Inso and run Insomnia test
+        run: |
+          npm install -g insomnia-inso
+          inso run test --testName "Verify GET /products" --env "Development"
       - name: Run OWASP ZAP scan  
         uses: zaproxy/action-baseline@v0.4.0
         with:
