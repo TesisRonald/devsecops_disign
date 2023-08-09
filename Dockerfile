@@ -14,3 +14,5 @@ COPY ./product/services .
 RUN pip install -r requirements.txt
 RUN pip install setuptools==68
 RUN pip show setuptools
+# Ejecutar app.py utilizando Flask
+CMD ["flask", "run", "--host=0.0.0.0"]
