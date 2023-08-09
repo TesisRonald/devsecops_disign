@@ -14,5 +14,11 @@ COPY ./product/services .
 RUN pip install -r requirements.txt
 RUN pip install setuptools==68
 RUN pip show setuptools
+# Establecer la variable de entorno FLASK_APP
+ENV FLASK_APP=app.py
+
+# Exponer el puerto 5000
+EXPOSE 5000
+
 # Ejecutar app.py utilizando Flask
 CMD ["flask", "run", "--host=0.0.0.0"]
