@@ -96,11 +96,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: false
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+        run: |
+          docker build -t my-registry/my-repository/my-image:my-image-tag .
       - name: setuptools
         run: |
           docker image ls
