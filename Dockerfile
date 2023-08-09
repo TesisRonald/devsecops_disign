@@ -1,4 +1,5 @@
 FROM python:3.8-alpine
+RUN pip show setuptools
 # Crear un nuevo usuario no privilegiado
 RUN adduser -D myuser
 
