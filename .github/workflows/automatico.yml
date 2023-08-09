@@ -115,11 +115,11 @@ jobs:
       - name: Run product container
         run: |
           docker run -d -p 5000:5000 -u myuser ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag 
-      - name: curl
-        run: | 
-          netstat -an | grep 5000
-          curl -v -X GET http://127.0.0.1:5000//products
-          curl -v -X GET http://localhost:5000/products
+      - name: Install Inso
+        run: npm install -g insomnia-inso
+
+      - name: Run API tests
+        run: inso run test --testName "Verify GET /products" --env "Development"
 
       - name: Run OWASP ZAP scan  
         uses: zaproxy/action-baseline@v0.4.0
