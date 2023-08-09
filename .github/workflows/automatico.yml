@@ -112,18 +112,18 @@ jobs:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
           only-severities: critical,high
           exit-code: true      
-      - name: Push
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
-
       - name: Run product container
         run: |
-          docker run -d -p 5000:5000 ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+          docker run -d -p 5000:5000 -u myuser ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag 
       - name: Run OWASP ZAP scan
         uses: zaproxy/action-baseline@v0.4.0
         with:
           target: "http://127.0.0.1:5000"
           cmd_options: "-a"
+      - name: Push
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+
   
   merge-branch:
     runs-on: ubuntu-latest
