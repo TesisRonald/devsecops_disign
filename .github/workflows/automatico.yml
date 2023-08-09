@@ -118,7 +118,7 @@ jobs:
       - name: Install Inso and run Insomnia test
         uses: kong/setup-inso@v1
         with:
-          inso-version: 2022.7.1
+          inso-version: 7.1
           run: inso run test --testName "Verify GET /products" --env "Development"
       - name: Run OWASP ZAP scan  
         uses: zaproxy/action-baseline@v0.4.0
