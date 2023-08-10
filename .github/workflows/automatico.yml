@@ -139,7 +139,7 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          target_branch: feature
+          target_branch: main
           message: Merge staging into uat
           github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       - name: Send notification on merge conflict
