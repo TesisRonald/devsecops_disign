@@ -10,7 +10,7 @@ csrf = CSRFProtect(app)
 
 @app.route('/products')
 def get_products():
-    """Lista serial
+    """L-sta serial
     Keyword arguments:
     cargamos todo los seriales con su id
     Return: se crea un json de todo los seriales
