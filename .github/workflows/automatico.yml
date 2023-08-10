@@ -81,7 +81,7 @@ jobs:
       
   ci:
     runs-on: ubuntu-latest
-    # needs: [testCalidad-Unitaria, sonarcloud]
+    needs: [testCalidad-Unitaria, sonarcloud]
     name: docker&DockerScout&OwaspZap
     steps:
       - name: Checkout code
