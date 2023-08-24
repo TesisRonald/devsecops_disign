@@ -10,7 +10,7 @@ DB_NAME = 'Product'
 username = os.getenv('DB_USERNAME')
 password = os.getenv('DB_PASSWORD')
 if username is None or password is None:
-    print("Error: Las variables de entorno DB_USERNAME y/o DB_PASSWORD no están definidas")
+    print("Error credenciales")
 else:
     uri = ("mongodb+srv://" + username + ":" + password +
            "@tesisdevsecops2023.wdmpqj0.mongodb.net/" +
