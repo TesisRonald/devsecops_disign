@@ -15,5 +15,5 @@ jobs:
         aws-region: us-east-1
     - name: Recuperar imagen desde Docker Hub
       run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
-    - name: Actualizar capacidad en App Runner
-      run: aws apprunner update-service --service-arn my-apprunner-service-arn --instance-configuration Cpu=256,Memory=2048
+    - name: Crear servicio en App Runner
+      run: aws apprunner create-service --service-name my-service-name --source-configuration ImageRepositoryType=ECR_PUBLIC,ImageIdentifier=${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag --instance-configuration Cpu=256,Memory=2048
