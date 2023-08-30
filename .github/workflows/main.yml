@@ -30,7 +30,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1  
 
       - name: Iniciar sesión en Docker Hub
-        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}      
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}      
 
       - name: Recuperar imagen desde Docker Hub
         run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
