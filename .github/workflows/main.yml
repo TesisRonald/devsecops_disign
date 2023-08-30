@@ -25,35 +25,38 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1        
+        uses: aws-actions/amazon-ecr-login@v1  
 
-      - name: Build, tag, and push image to Amazon ECR
-        id: build-image
+      - name: Iniciar sesión en Docker Hub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}      
+
+      - name: Recuperar imagen desde Docker Hub
+        run: docker pull ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag
+
+      - name: Etiquetar y enviar imagen a Amazon ECR
+        id: push-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: nodejs
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag ${{ secrets.DOCKERHUB_USERNAME }}/venceya:my-image-tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"  
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+
+      - name: Deploy to App Runner Image
+        id: deploy-apprunner
+        uses: awslabs/amazon-app-runner-deploy@main
+        with:
+          service: app-runner-git-deploy-service
+          image: ${{ steps.push-image.outputs.image }}
+          access-role-arn: ${{ secrets.ROLE_ARN }}
+          region: ${{ secrets.AWS_REGION }}
+          cpu : 0.25
+          memory : 2
+          wait-for-service-stability-seconds: 1200
           
-        - name: Deploy to App Runner Image
-          id: deploy-apprunner
-          uses: awslabs/amazon-app-runner-deploy@main
-          with:
-            service: app-runner-git-deploy-service
-            image: ${{ steps.build-image.outputs.image }}
-            access-role-arn: ${{ secrets.ROLE_ARN }}
-            region: ${{ secrets.AWS_REGION }}
-            cpu : 0.25
-            memory : 2
-            # Deprecated: wait-for-service-stability: true
-            # The new way to control service stability timeout
-            wait-for-service-stability-seconds: 1200
-      
       - name: App Runner URL
         run: echo "App runner URL ${{ steps.deploy-apprunner.outputs.service-url }}" 
