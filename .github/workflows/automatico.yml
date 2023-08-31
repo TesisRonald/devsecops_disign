@@ -4,9 +4,10 @@ on:
   push:
     branches-ignore:
       - main
+      - Microservicio-producto
       - library
 env:
-  MY_IMAGE: venceya:services-tag
+  MY_IMAGE: venceya:microservicio-producto-tag
 
 
 jobs:

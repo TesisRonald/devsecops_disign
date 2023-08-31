@@ -4,6 +4,7 @@ on:
       branches-ignore:
       - main
       - library
+      - Microservicio-producto
   #   branches: [main] # Trigger workflow on git push to main branch
   # workflow_dispatch: # Allow manual invocation of the workflow
 env:
