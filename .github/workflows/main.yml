@@ -19,6 +19,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE}} # Only required for Organizations, not personal accounts
           GITLEAKS_CONFIG: '/home/runner/work/devsecops_disign/devsecops_disign/gitleaks.toml'
+          
             
   testCalidad-Unitaria:
     needs: scan
