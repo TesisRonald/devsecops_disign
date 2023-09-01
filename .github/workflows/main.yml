@@ -3,7 +3,7 @@ on:
   push:
      branches: [main]
 env:
-  MY_IMAGE: services:services-tag
+  MY_IMAGE: venceya:microservicio-producto-tag
 
 jobs: 
   scan:
