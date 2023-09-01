@@ -1,9 +1,10 @@
 name: Deploy to App Runner
 on:
   push:
-     branches: [main]
+    branches: [Microservicio-producto]
+
 env:
-  MY_IMAGE: services:services-tag
+  MY_IMAGE: venceya:microservicio-producto-tag
 
 jobs: 
   scan:
@@ -132,6 +133,7 @@ jobs:
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.MY_IMAGE }}
 
   deploy:
+    needs: ci
     runs-on: ubuntu-latest
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
