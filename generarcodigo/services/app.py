@@ -1,6 +1,6 @@
-from flask import Flask, jsonify
 import uuid
 
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 app.debug = True
