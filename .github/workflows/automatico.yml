@@ -148,7 +148,6 @@ jobs:
           target_branch: Microservicio-generar-codigo
           message: Merge staging into uat
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          
       - name: Send notification on merge conflict
         if: failure()
         uses: rtCamp/action-slack-notify@v2
