@@ -2,10 +2,10 @@ name: GitGuardian scan
 
 on:
   push:
-    branches: [Microservicio-producto-Feature]
+    branches: [Microservicio-inventario-Feature]
     
 env:
-  MY_IMAGE: venceya:microservicio-producto-tag
+  MY_IMAGE: venceya:microservicio-inventario-tag
 
 
 jobs:
@@ -145,9 +145,9 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          target_branch: Microservicio-producto
+          target_branch: Microservicio-inventario
           message: Merge staging into uat
-          github_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Send notification on merge conflict
         if: failure()
         uses: rtCamp/action-slack-notify@v2

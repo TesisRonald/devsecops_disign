@@ -1,7 +1,10 @@
 name: Deploy to App Runner
 on:
   push:
-    branches: [Microservicio-producto]
+    branches: [Microservicio-inventario]
+  pull_request:
+    branches: [Microservicio-inventario]
+
 
 env:
   MY_IMAGE: venceya:microservicio-producto-tag
@@ -169,7 +172,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: design-devsecops
-          IMAGE_TAG: microservicio-producto-tag
+          IMAGE_TAG: microservicio-inventario-tag
         run: |
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.MY_IMAGE }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
