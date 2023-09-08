@@ -12,7 +12,10 @@ csrf = CSRFProtect(app)
 @app.route('/inventario')
 def get_inventorys():
     """Obtiene una lista de productos del inventario.
-    Esta función obtiene una lista de productos del inventario desde la base de datos y los devuelve en formato JSON.   
+    Esta función obtiene una lista 
+    de productos del inventario desde
+    la base de datos y los devuelve en
+    formato JSON.   
     """
     results = db_client.inventario.find()
     inventario = []
@@ -31,7 +34,11 @@ def get_inventorys():
 def get_inventory(inventory_id):
     """Obtiene un producto del inventario por su ID.
 
-    Esta función busca un producto en la base de datos por su ID y lo devuelve en formato JSON. Si el producto no se encuentra, devuelve un error 404.
+    Esta función busca un producto 
+    en la base de datos por su ID y 
+    lo devuelve en formato JSON. 
+    Si el producto no se encuentra, 
+    devuelve un error 404.
 
     Args:
     inventory_id (str): El ID del producto a buscar.
@@ -59,13 +66,14 @@ def get_inventory(inventory_id):
 def create_inventory():
     """Crea un nuevo producto en el inventario.
 
-    Esta función recibe datos de un producto en formato JSON a través de una solicitud POST y los guarda en la base de datos. Devuelve el ID del producto creado.
+    Esta función recibe datos a través de una solicitud POST
+    y los guarda en la base de datos. Devuelve el ID del producto creado.
 
     Returns:
         json: Un objeto JSON que contiene el ID del producto creado.
     """
 
-    if not request is None:
+    if request is not None:
         id = db_client.inventario.insert_one(
             {
                 'idproducto': request.json['idproducto'],
@@ -88,10 +96,12 @@ def create_inventory():
 def get_expiring_products():
     """Obtiene una lista de productos que están a punto de caducar.
 
-    Esta función busca productos en la base de datos cuya fecha de caducidad sea dentro de una semana y los devuelve en formato JSON.
+    Esta función busca productos cuya fecha de
+    caducidad sea dentro de una semana y los 
+    devuelve en formato JSON.
 
     Returns:
-        json: Un objeto JSON que representa una lista de productos que están a punto de caducar.
+        json: Un objeto JSON con una lista de productos a caducar.
     """
     next_week = datetime.now() + timedelta(weeks=12)
     next_week_str = next_week.strftime('%Y-%m-%d')
