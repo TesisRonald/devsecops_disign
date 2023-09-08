@@ -3,8 +3,11 @@ from bson.errors import InvalidId
 from bson import ObjectId
 from db import db_client
 from datetime import datetime, timedelta
+from flask_wtf.csrf import CSRFProtect  # type: ignor
 
 app = Flask(__name__)
+csrf = CSRFProtect(app)
+
 
 @app.route('/inventario')
 def get_inventorys():
@@ -22,6 +25,7 @@ def get_inventorys():
             'Undlote': result['Undlote'],
         })
     return jsonify(inventario)
+
 
 @app.route('/inventario/<string:inventory_id>')
 def get_inventory(inventory_id):
@@ -42,13 +46,14 @@ def get_inventory(inventory_id):
     if result is None:
         return jsonify({'error': 'Producto no encontrado'}), 404
     inventario = {
-            'id': str(result['_id']),
-            'idproducto': result['idproducto'],
-            'codigo': result['codigo'],
-            'fechavenc': result['fechavenc'],
-            'Undlote': result['Undlote'],
-            }
+        'id': str(result['_id']),
+        'idproducto': result['idproducto'],
+        'codigo': result['codigo'],
+        'fechavenc': result['fechavenc'],
+        'Undlote': result['Undlote'],
+    }
     return jsonify(inventario)
+
 
 @app.route('/inventario', methods=['POST'])
 def create_inventory():
@@ -59,28 +64,26 @@ def create_inventory():
     Returns:
         json: Un objeto JSON que contiene el ID del producto creado.
     """
-    
-    if not request is None: 
+
+    if not request is None:
         id = db_client.inventario.insert_one(
             {
-            'idproducto': request.json['idproducto'],
-            'codigo': request.json['codigo'],
-            'fechavenc': request.json['fechavenc'],
-            'Undlote': request.json['Undlote'],                        
+                'idproducto': request.json['idproducto'],
+                'codigo': request.json['codigo'],
+                'fechavenc': request.json['fechavenc'],
+                'Undlote': request.json['Undlote'],
             }
         )
         respose = {
-            'id': str(id.inserted_id),            
-            'registrado':'registrado en el inventario'
+            'id': str(id.inserted_id),
+            'registrado': 'registrado en el inventario'
         }
         return respose
-    
+
     else:
         return jsonify({'message': 'Not found'}), 404
-    
-    
-    
-    
+
+
 @app.route('/inventario/caduca')
 def get_expiring_products():
     """Obtiene una lista de productos que están a punto de caducar.
@@ -103,6 +106,7 @@ def get_expiring_products():
             'Undlote': result['Undlote'],
         })
     return jsonify(products)
+
 
 if __name__ == '__main__':
     app.run()
