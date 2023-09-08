@@ -12,7 +12,7 @@ csrf = CSRFProtect(app)
 @app.route('/inventario')
 def get_inventorys():
     """Obtiene una lista de productos del inventario.
-    Esta función obtiene una lista de productos del inventario.   
+    Esta función obtiene una lista de productos del inventario.
     """
     results = db_client.inventario.find()
     inventario = []
@@ -59,7 +59,7 @@ def get_inventory(inventory_id):
 def create_inventory():
     """Crea un nuevo producto en el inventario.
 
-    Esta función guarda en la base de datos un registro 
+    Esta función guarda en la base de datos un registro
 
     Returns:
         json: Un objeto JSON que contiene el ID del producto creado.
