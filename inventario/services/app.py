@@ -3,7 +3,7 @@ from bson.errors import InvalidId
 from bson import ObjectId
 from db import db_client
 from datetime import datetime, timedelta
-from flask_wtf.csrf import CSRFProtect  # type: ignor
+from flask_wtf.csrf import CSRFProtect  # type: ignore
 
 app = Flask(__name__)
 csrf = CSRFProtect(app)
