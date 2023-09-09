@@ -12,7 +12,7 @@ USER myuser
 WORKDIR /app
 # RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev cargo
 
-COPY ./product/services .
+COPY ./inventario/services .
 RUN pip install setuptools==68
 RUN pip show setuptools
 # Establecer la variable de entorno FLASK_APP
