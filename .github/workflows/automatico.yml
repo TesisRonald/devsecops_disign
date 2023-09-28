@@ -2,7 +2,7 @@ name: GitGuardian scan
 
 on:
   push:
-    branches: [Microservicio-producto-Feature]
+    branches: [Microservicio-notificacion-Feature]
     
 env:
   MY_IMAGE: venceya:microservicio-notificacion-tag
