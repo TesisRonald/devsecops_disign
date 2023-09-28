@@ -4,7 +4,7 @@ on:
     branches: [Microservicio-producto]
 
 env:
-  MY_IMAGE: venceya:microservicio-producto-tag
+  MY_IMAGE: venceya:microservicio-notificacion-tag
 
 jobs:
   scan:
@@ -169,7 +169,7 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: design-devsecops
-          IMAGE_TAG: microservicio-producto-tag
+          IMAGE_TAG: microservicio-notificacion-tag
         run: |
           docker tag ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.MY_IMAGE }} $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
