@@ -22,11 +22,9 @@ def send_notifications():
         response = requests.get(url)
         product_name = response.json()
         product_names.append(product_name)
-
-
-    # Send notifications for each expiring product
+    # Send notifications for each expiring
     for product_name in product_names:
-        # masivo para enviar 
+        # masivo para enviar
         pass
 
     return jsonify({'message': 'Notifications sent'})
